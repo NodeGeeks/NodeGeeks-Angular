@@ -1,0 +1,30 @@
+{
+	"name": "NodeGeeks",
+	"version": "1.0.0",
+	"authors": [
+		"aaronlewisrussell@gmail.com"
+	],
+	"description": "AngularJS Service Library with custom DS, Auth and commonly used services.",
+	"keywords": [
+		"angular",
+		"nodegeeks",
+		"library",
+		"compiled",
+		"ds",
+		"datastore",
+		"model"
+	],
+	"license": "MIT",
+	"ignore": [
+		"**/.*",
+		"node_modules",
+		"bower_components",
+		"test",
+		"tests"
+	],
+	"dependencies": {
+		"angular":"~1.2.0"
+	},
+	"devDependencies": {
+	}
+}
