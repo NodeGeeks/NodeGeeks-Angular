@@ -1,18 +1,11 @@
 {
-	"name": "NodeGeeks",
-	"version": "1.0.0",
+	"name": "NodeGeeks-demo",
+	"version": "0.0.0",
 	"authors": [
 		"aaronlewisrussell@gmail.com"
 	],
-	"description": "AngularJS Service Library with custom DS, Auth and commonly used services.",
+	"description": "Demo",
 	"keywords": [
-		"angular",
-		"nodegeeks",
-		"library",
-		"compiled",
-		"ds",
-		"datastore",
-		"model"
 	],
 	"license": "MIT",
 	"ignore": [
@@ -23,7 +16,10 @@
 		"tests"
 	],
 	"dependencies": {
-		"angular":"~1.2.0"
+		"angular":"~1.2.0",
+		"angular-sanitize":"~1.2.0",
+		"angular-route":"~1.2.0",
+		"angular-touch":"~1.2.0"
 	},
 	"devDependencies": {
 	}
