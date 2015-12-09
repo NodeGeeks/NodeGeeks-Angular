@@ -1,0 +1,49 @@
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="login-content">
+            <h1>{{app.name}} Login</h1>
+            <ng-form name="login">
+                <div class="row">
+                    <div class="col-md-12">
+                        <input type="text" placeholder="Login" class="form-control" ng-model="user"/>
+                        <input type="password" placeholder="Password" class="form-control" ng-model="password"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="rem-password">
+                            <p>Remember Me
+                                <input type="checkbox" class="rem-checkbox"/>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 text-right">
+                        <div class="forgot-password">
+                            <a href="#recover">Recover password</a>
+                        </div>
+                        <button class="btn btn-primary" ng-click="login(user, password)">Sign In</button>
+                    </div>
+                </div>
+            </ng-form>
+        </div>
+        <div class="login-footer">
+            <div class="row">
+                <div class="col-xs-4">
+                    <ul class="login-social">
+                        <li ng-if="app.facebookAPI">
+                            <button class="btn btn-link" ng-click="social('facebook')">Facebook</button>
+                        </li>
+                        <li ng-if="app.twitterAPI">
+                            <button class="btn btn-link" ng-click="social('twitter')">Twitter</button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-xs-8">
+                    <div class="login-copyright text-right">
+                        <p>Copyright &copy; {{app.company}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

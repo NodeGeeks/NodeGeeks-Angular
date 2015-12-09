@@ -1,0 +1,43 @@
+<div class="portlet light">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="icon-layers font-red"></i>
+            <span class="caption-subject font-red bold uppercase"> {{title}} -
+                <span class="step-title"> Step {{step.number}} of {{allSteps.length}} </span>
+            </span>
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <form class="form-horizontal">
+            <div class="form-wizard">
+                <div class="form-body">
+                    <ul class="nav nav-pills nav-justified steps">
+                        <li ng-class="{active:step.number == $parent.step.number, completed:step.number < $parent.step.number}" ng-repeat="step in allSteps track by $index" ng-click="$parent.step = step">
+                            <a href="#tab{{step.number}}" data-toggle="tab" class="step">
+                                <span class="number"> {{step.number}} </span>
+                                                            <span class="desc">
+                                                                <i class="fa fa-check"></i> {{step.title}} </span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div id="bar" class="progress progress-striped" role="progressbar">
+                        <div class="progress-bar progress-bar-success" style="width: {{percentage}}%"></div>
+                    </div>
+                    <div class="tab-content flex">
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-9">
+                            <div class="pull-right">
+                                <button ng-show="step.number > 1" class="btn default button-previous" ng-click="back()">Back</button>
+                                <button ng-hide="step.number >= allSteps.length" class="btn btn-outline green button-next" ng-click="next()">Next</button>
+                                <button ng-show="step.number >= allSteps.length" class="btn green button-submit" ng-click="action(scope)">Finish</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
