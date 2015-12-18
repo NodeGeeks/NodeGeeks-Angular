@@ -19,6 +19,7 @@ angular.module('app', [
     'door3.css'
 ]).config(function ($routeProvider, $sailsProvider, $locationProvider) {
     $sailsProvider.url = 'http://localhost:1337';
+    //todo: add statement that checks if its served up or being built, if serve hit local api, if build --environment
     $routeProvider
             .when('/login', {
                 templateUrl: 'views/nodegeeks/login.html',
@@ -47,10 +48,14 @@ angular.module('app', [
             .otherwise({
                 redirectTo: '/'
             });
-}).run(function ($rootScope, App) {
-            App.findAll(1).then(function(apps){
+}).run(function ($rootScope, App, LocalStorage, Auth) {
+            App.findAll(1).then(function (apps) {
                 $rootScope.app = apps[0];
             });
-            $rootScope.session = {};
+
+            var localProfile = LocalStorage.getItem('profile');
+            if (localProfile) {
+                Auth.validate(localProfile);
+            }
         }
 );
