@@ -10,14 +10,24 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-uglify');
 
+    var dependencies = [];
+
+    var bower = grunt.file.readJSON('bower.json');
+
+    for (var key in bower.dependencies) {
+        if (bower.dependencies.hasOwnProperty(key)) {
+            dependencies.push('bower_components/'+key+'/dist/'+key+'.js');
+        }
+    }
+
     grunt.initConfig({
 
-        pkg: grunt.file.readJSON('package.json'),
+        pkg: bower,
 
         concat: {
             dist: {
                 // the files to concatenate
-                src: ['app/scripts/**/*.js'],
+                src: dependencies.concat(['src/scripts/**/*.js']),
                 // the location of the resulting JS file
                 dest: 'dist/<%= pkg.name %>.js'
             }
