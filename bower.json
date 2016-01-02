@@ -1,7 +1,11 @@
 {
   "name": "nodegeeks-angular",
   "description": "NodeGeeks LLC compiled library of Angular components, directives, services that allows smooth integration with nodegeeks-sails framework.",
-  "main": "/dist/nodegeeks-angular.js",
+  "main": [
+    "dist/nodegeeks-angular-libs.js",
+    "dist/nodegeeks-angular-dependencies.js",
+    "dist/nodegeeks-angular.js"
+  ],
   "authors": [
     "NodeGeeks LLC <support@nodegeeksllc.com>"
   ],
@@ -13,7 +17,7 @@
     "node_modules",
     "bower_components"
   ],
-  "dependencies": {
+  "devDependencies": {
     "angular-sails": "~1.1.4",
     "hello": "~1.9.8"
   }

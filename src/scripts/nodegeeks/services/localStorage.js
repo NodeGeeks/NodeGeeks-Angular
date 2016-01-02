@@ -2,26 +2,25 @@
  * Created by aaronrussell on 11/4/15.
  * @Description:
  */
-angular.module('nodegeeks-angular').service('LocalStorage', function () {
+angular.module('nodegeeks-angular').service('LocalStorage', function (DS) {
 
     return {
-        getItem: function(key) {
+        getItem: function (key) {
             var value = localStorage.getItem(key);
-            var parsedValue = JSON.parse(value);
-            if (parsedValue) return parsedValue;
-            return value;
+            try {
+                return JSON.parse(value);
+            } catch (err) {
+                return value;
+            }
 
         },
-        setItem: function(key, value) {
-            if (value.constructor == Object || value.constructor == Array) {
-                return localStorage.setItem(key, JSON.stringify(value));
+        setItem: function (key, value) {
+            if (value.constructor == String || value.constructor == Number) {
+                return localStorage.setItem(key, value);
             }
-            if (value.constructor == Function) {
-                return console.error('Cannot set a function as a value');
-            }
-            return localStorage.setItem(key, value);
+            return localStorage.setItem(key, JSON.stringify(value));
         },
-        removeItem: function(key) {
+        removeItem: function (key) {
             return localStorage.removeItem(key);
         }
     }

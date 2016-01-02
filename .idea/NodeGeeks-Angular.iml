@@ -5,8 +5,6 @@
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/.sass-cache/e5011256337edc8b4497598b456e4e1a1be5cf4d" />
       <excludeFolder url="file://$MODULE_DIR$/.tmp/styles" />
-      <excludeFolder url="file://$MODULE_DIR$/bower_components" />
-      <excludeFolder url="file://$MODULE_DIR$/node_modules" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

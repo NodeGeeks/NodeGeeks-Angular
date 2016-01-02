@@ -463,6 +463,19 @@ angular.module('nodegeeks-angular').service('DS', function ($http, $q, $sails, $
         };
 
         /**
+         * @method: extend
+         * @description: Used to extend a model and creates the database model instance to hold all this models data.
+         * @params: modelName - name of the model
+         *          modelClass- object containing the models properties
+         * @returns: does not return anything
+         * @example: DS.Model.extend('profile', attributes: {fullName: function(){return this.firstName + ' ' + this.lastName}});
+         */
+        Model.prototype.extend = function (modelClass) {
+            var _model = this;
+            return angular.extend(_model, modelClass);
+        };
+
+        /**
          * @method: create
          * @description: Creates a new record in the database, uses the Model.Model
          * @params: obj - object containing the models values to be created create
@@ -488,6 +501,7 @@ angular.module('nodegeeks-angular').service('DS', function ($http, $q, $sails, $
                         }
                     }
                 }
+
                 for (var key in record) {
                     if (record.hasOwnProperty(key)) {
                         //we check to make sure its not a hasMany or belongsTo, if not proceed

@@ -43,12 +43,12 @@ angular.module('nodegeeks-angular').factory('Profile', function (DS) {
 
             role: {
                 type: 'string',
-                enum: ['admin', 'moderator', 'billing', 'developer', 'member'],
                 defaultsTo: 'member'
             },
 
             image: {
-                type: 'string'
+                type: 'string',
+                defaultsTo: 'images/default-avatar.png'
             },
 
             dob: {

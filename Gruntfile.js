@@ -14,9 +14,9 @@ module.exports = function (grunt) {
 
     var bower = grunt.file.readJSON('bower.json');
 
-    for (var key in bower.dependencies) {
-        if (bower.dependencies.hasOwnProperty(key)) {
-            dependencies.push('bower_components/'+key+'/dist/'+key+'.js');
+    for (var key in bower.devDependencies) {
+        if (bower.devDependencies.hasOwnProperty(key)) {
+            dependencies.push('bower_components/' + key + '/dist/' + key + '.js');
         }
     }
 
@@ -25,10 +25,16 @@ module.exports = function (grunt) {
         pkg: bower,
 
         concat: {
+            libs: {
+                src: 'src/lib/**/*.js',
+                dest: 'dist/<%= pkg.name %>-libs.js'
+            },
+            depends: {
+                src: dependencies,
+                dest: 'dist/<%= pkg.name %>-dependencies.js'
+            },
             dist: {
-                // the files to concatenate
-                src: ['src/scripts/**/*.js','src/lib/**/*.js'].concat(dependencies),
-                // the location of the resulting JS file
+                src: 'src/scripts/**/*.js',
                 dest: 'dist/<%= pkg.name %>.js'
             }
         },
@@ -39,7 +45,7 @@ module.exports = function (grunt) {
             },
             dist: {
                 files: {
-                    'dist/<%= pkg.name %>.min.js': ['<%= concat.dist.dest %>']
+                    'dist/<%= pkg.name %>.min.js': ['<%= concat.depends.dest %>', '<%= concat.libs.dest %>', '<%= concat.dist.dest %>']
                 }
             }
         },
@@ -49,7 +55,6 @@ module.exports = function (grunt) {
                 files: [{
                     dot: true,
                     src: [
-                        '.tmp',
                         'dist/{,*/}*',
                         '!dist/.git{,*/}*'
                     ]
@@ -67,4 +72,5 @@ module.exports = function (grunt) {
     grunt.registerTask('default', [
         'build'
     ]);
-};
+}
+;
