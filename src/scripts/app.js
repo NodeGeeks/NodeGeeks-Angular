@@ -9,8 +9,7 @@
  * Main module of the Framework.
  */
 angular.module('nodegeeks-angular', [
-    'ngSails',
-    'door3.css'
+    'ngSails'
 ]).config(function ($sailsProvider) {
     $sailsProvider.url = 'http://localhost:1337';
     $sailsProvider.debug = true;
