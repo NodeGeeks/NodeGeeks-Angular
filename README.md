@@ -1,12 +1,8 @@
-# NodeGeeks Angular App
+# NodeGeeks Angular Framework
 
-This project is used as a base to all of our angular apps.
+NodeGeeks LLC compiled library of Angular components, directives, services that allows smooth integration with nodegeeks-sails framework.
 
-## Instructions
-
-1. Clone repository into an empty directory
-2. Run bower install and npm install
-3. Edit the 'app' module name, package.json and bower.json file the project specific names.
+Just run `bower install nodegeeks-angular` and include the 'nodegeeks-angular' module in your angular app.
 
 ## Todo's
 
