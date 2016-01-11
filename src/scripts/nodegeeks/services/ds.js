@@ -320,10 +320,10 @@ angular.module('nodegeeks-angular').service('DS', function ($http, $q, $sails, $
                                         if (remoteRecord.error) {
                                             return reject(remoteRecord);
                                         }
-                                        var i = remoteRecord[_this._property].indexOf(val);
-                                        var wrappedRecord = _this._model.Record(remoteRecord[_this._property][i]);
+                                        var filteredRecord = remoteRecord[_this._property].filter(function(singleRecord){return singleRecord.id == val})[0];
+                                        var wrappedRecord = _this._model.Record(filteredRecord);
                                         _this.push(wrappedRecord);
-                                        return resolve(wrappedRecord);
+                                        return resolve(_record);
                                     }, function (error) {
                                         console.error(error);
                                         return reject(error);
@@ -335,14 +335,18 @@ angular.module('nodegeeks-angular').service('DS', function ($http, $q, $sails, $
                         HasManyProperty.prototype.get = function () {
                             var hasManyArray = this;
                             return $q(function (resolve, reject) {
-                                hasManyArray.forEach(function (record, index) {
-                                    record.retrieve().then(function (newRecord) {
-                                        hasManyArray[index] = newRecord;
-                                    }, function () {
+                                $sails.request({
+                                    method: 'get',
+                                    url: '/' + _model.modelName + '/' + _record.id + '/' + hasManyArray._property
+                                }, function (remoteRecords) {
+                                    hasManyArray.splice(0,hasManyArray.length);
+                                    remoteRecords.forEach(function(remoteRecord){
+                                        hasManyArray.push(hasManyArray._model.Record(remoteRecord));
                                     });
-                                    if (index == hasManyArray.length - 1) {
-                                        return resolve(hasManyArray);
-                                    }
+                                    return resolve(hasManyArray);
+                                }, function (error) {
+                                    console.error(error);
+                                    return reject(error);
                                 });
                             });
                         };

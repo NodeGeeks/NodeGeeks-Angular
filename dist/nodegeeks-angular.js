@@ -590,9 +590,10 @@ angular.module('nodegeeks-angular').service('Auth', function (Profile, $rootScop
             }, function (profile) {
                 if (profile.code == 403 || profile.code == 404) return Notify.alert(profile.message);
                 if (!profile.isActivated) return Notify.alert('You need to activate your account before logging in.');
+                $location.url(_auth.loginRedirect);
                 var profileRecord = Profile.Record(profile);
                 $rootScope.session = profileRecord;
-                $location.url(_auth.loginRedirect);
+                $rootScope.$apply();
                 LocalStorage.setItem('session', {id: profile.id, token: profile.token, email: profile.email, username: profile.username});
                 resolve(profileRecord);
             }, function (error) {
@@ -607,9 +608,9 @@ angular.module('nodegeeks-angular').service('Auth', function (Profile, $rootScop
         return $q(function (resolve, reject) {
             $rootScope.session.token = '';
             $rootScope.session.save().then(function () {
+                $location.url(_auth.logoutRedirect);
                 $rootScope.session = undefined;
                 LocalStorage.removeItem('session');
-                $location.url(_auth.logoutRedirect);
                 resolve();
             }, function (error) {
                 console.error(error);
@@ -627,6 +628,7 @@ angular.module('nodegeeks-angular').service('Auth', function (Profile, $rootScop
             }, function (profile) {
                 var profileRecord = Profile.Record(profile);
                 $rootScope.session = profileRecord;
+                $rootScope.$apply();
                 LocalStorage.setItem('session', {id: profile.id, token: profile.token, email: profile.email, username: profile.username});
                 resolve(profileRecord);
             }, function (error) {
@@ -637,7 +639,7 @@ angular.module('nodegeeks-angular').service('Auth', function (Profile, $rootScop
     };
 
     this.verify = function (password) {
-        this.login((this.session.email || this.session.username), password)
+        this.login(($rootScope.session.email || $rootScope.session.username), password)
     };
 
     this.recover = function (email) {
@@ -660,9 +662,9 @@ angular.module('nodegeeks-angular').service('Auth', function (Profile, $rootScop
                 url: '/resetPassword',
                 data: {id: id, password: password, hash: hash}
             }, function (profile) {
+                $location.url(_auth.loginRedirect);
                 var profileRecord = Profile.Record(profile);
                 $rootScope.session = profileRecord;
-                $location.url(_auth.loginRedirect);
                 LocalStorage.setItem('session', {id: profile.id, token: profile.token, email: profile.email, username: profile.username});
                 resolve(profileRecord);
             }, function (error) {
@@ -1014,10 +1016,10 @@ angular.module('nodegeeks-angular').service('DS', function ($http, $q, $sails, $
                                         if (remoteRecord.error) {
                                             return reject(remoteRecord);
                                         }
-                                        var i = remoteRecord[_this._property].indexOf(val);
-                                        var wrappedRecord = _this._model.Record(remoteRecord[_this._property][i]);
+                                        var filteredRecord = remoteRecord[_this._property].filter(function(singleRecord){return singleRecord.id == val})[0];
+                                        var wrappedRecord = _this._model.Record(filteredRecord);
                                         _this.push(wrappedRecord);
-                                        return resolve(wrappedRecord);
+                                        return resolve(_record);
                                     }, function (error) {
                                         console.error(error);
                                         return reject(error);
@@ -1029,14 +1031,18 @@ angular.module('nodegeeks-angular').service('DS', function ($http, $q, $sails, $
                         HasManyProperty.prototype.get = function () {
                             var hasManyArray = this;
                             return $q(function (resolve, reject) {
-                                hasManyArray.forEach(function (record, index) {
-                                    record.retrieve().then(function (newRecord) {
-                                        hasManyArray[index] = newRecord;
-                                    }, function () {
+                                $sails.request({
+                                    method: 'get',
+                                    url: '/' + _model.modelName + '/' + _record.id + '/' + hasManyArray._property
+                                }, function (remoteRecords) {
+                                    hasManyArray.splice(0,hasManyArray.length);
+                                    remoteRecords.forEach(function(remoteRecord){
+                                        hasManyArray.push(hasManyArray._model.Record(remoteRecord));
                                     });
-                                    if (index == hasManyArray.length - 1) {
-                                        return resolve(hasManyArray);
-                                    }
+                                    return resolve(hasManyArray);
+                                }, function (error) {
+                                    console.error(error);
+                                    return reject(error);
                                 });
                             });
                         };
