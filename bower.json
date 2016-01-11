@@ -1,31 +1,24 @@
 {
-  "name": "app",
-  "version": "0.0.0",
-  "dependencies": {
-    "angular": "^1.3.0",
-    "angular-animate": "^1.3.0",
-    "angular-cookies": "^1.3.0",
-    "angular-resource": "^1.3.0",
-    "angular-route": "^1.3.0",
-    "angular-sanitize": "^1.3.0",
-    "angular-touch": "^1.3.0",
-    "angular-sails": "~1.1.4",
-    "sails.io.js": "*",
-    "angular-css": "~1.0.7",
-    "hello": "~1.9.8",
-    "bootstrap": "~3.3.6",
-    "angular-nvd3": "~1.0.5"
-  },
+  "name": "nodegeeks-angular",
+  "description": "NodeGeeks LLC compiled library of Angular components, directives, services that allows smooth integration with nodegeeks-sails framework.",
+  "main": [
+    "dist/nodegeeks-angular-libs.js",
+    "dist/nodegeeks-angular-dependencies.js",
+    "dist/nodegeeks-angular.js"
+  ],
+  "authors": [
+    "NodeGeeks LLC <support@nodegeeksllc.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/NodeGeeks/NodeGeeks-Angular",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "node_modules",
+    "bower_components"
+  ],
   "devDependencies": {
-    "angular-mocks": "^1.3.0"
-  },
-  "overrides": {
-    "bootstrap": {
-      "main": [
-        "dist/css/bootstrap.css"
-      ]
-    }
-  },
-  "appPath": "app",
-  "moduleName": "app"
+    "angular-sails": "~1.1.4",
+    "hello": "~1.9.8"
+  }
 }

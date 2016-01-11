@@ -2,9 +2,12 @@
 <module type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
-    <content url="file://$MODULE_DIR$" />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/.sass-cache/e5011256337edc8b4497598b456e4e1a1be5cf4d" />
+      <excludeFolder url="file://$MODULE_DIR$/.tmp/styles" />
+    </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="NodeGeeks-Angular node_modules" level="project" />
+    <orderEntry type="library" name="nodegeeks-angular node_modules" level="project" />
   </component>
 </module>
