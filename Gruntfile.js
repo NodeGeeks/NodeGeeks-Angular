@@ -6,6 +6,7 @@
 'use strict';
 
 module.exports = function (grunt) {
+    grunt.loadNpmTasks('grunt-angular-templates');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -40,13 +41,27 @@ module.exports = function (grunt) {
         },
 
         uglify: {
-            options: {
-                banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n'
-            },
             dist: {
                 files: {
                     'dist/<%= pkg.name %>.min.js': ['<%= concat.depends.dest %>', '<%= concat.libs.dest %>', '<%= concat.dist.dest %>']
                 }
+            }
+        },
+
+        ngtemplates: {
+            dist: {
+                options: {
+                    module: 'NautilusApp',
+                    htmlmin: {
+                        collapseWhitespace:             true,
+                        removeComments:                 true,
+                        keepClosingSlash:               true
+                    },
+                    usemin: 'scripts/scripts.js'
+                },
+                cwd: 'src',
+                src: 'views/**/*.html',
+                dest: 'scripts/templateCache.js'
             }
         },
 
@@ -65,6 +80,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('build', [
         'clean:dist',
+        'ngtemplates',
         'concat',
         'uglify'
     ]);

@@ -11,13 +11,13 @@ angular.module('nodegeeks-angular')
         .directive('formWizardStep', function() {
             return {
                 restrict: 'E',
-                templateUrl: 'views/nodegeeks/directives/form-wizard-step.html',
+                transclude: true,
+                templateUrl: 'views/directives/form-wizard-step.html',
                 scope: {
                     title: '@',
                     number: '@',
                     scope: '=scope'
                 },
-                transclude:true,
                 link: function(scope, element, attrs, ctrl, transclude) {
                     scope.$parent.allSteps.push(scope);
                     if (scope.$parent.step == scope.number) {

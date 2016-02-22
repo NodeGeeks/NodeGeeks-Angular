@@ -11,7 +11,7 @@ angular.module('nodegeeks-angular')
         .directive('formWizard', function() {
             return {
                 restrict: 'E',
-                templateUrl: 'views/nodegeeks/directives/form-wizard.html',
+                templateUrl: 'views/directives/form-wizard.html',
                 scope: {
                     action: '=',
                     title: '@',

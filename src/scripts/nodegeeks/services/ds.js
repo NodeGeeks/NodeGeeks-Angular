@@ -339,6 +339,7 @@ angular.module('nodegeeks-angular').service('DS', function ($http, $q, $sails, $
                                     method: 'get',
                                     url: '/' + _model.modelName + '/' + _record.id + '/' + hasManyArray._property
                                 }, function (remoteRecords) {
+                                    if (!remoteRecords) return resolve(hasManyArray);
                                     hasManyArray.splice(0,hasManyArray.length);
                                     remoteRecords.forEach(function(remoteRecord){
                                         hasManyArray.push(hasManyArray._model.Record(remoteRecord));

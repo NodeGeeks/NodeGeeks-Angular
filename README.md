@@ -72,7 +72,7 @@ A basic modal that is triggered by a popup-modal-btn, can be given
 Triggering the popup modal can be done in two ways, via a html (button) or javascript
 **view**
 ```html
-<button open-modal="customModal"> Open Popup </button>
+<button open-modal modal-name="customModal"> Open Popup </button>
 ```
 **controller**
 ```javascript
